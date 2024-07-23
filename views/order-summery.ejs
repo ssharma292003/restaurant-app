@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .summary-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-price {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-input {
+            width: 50px;
+            margin-left: 10px;
+            text-align: center;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #004494;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="summary-container">
+        <h1>Order Summary</h1>
+        <p>Action: <strong>
+                <%= orderDetails.action %>
+            </strong></p>
+        <h2>Selected Items:</h2>
+        <form action="/order-details" method="POST">
+            <div class="item-container">
+                <% orderDetails.items.forEach(function(item, index) { %>
+                    <div class="item">
+                        <div class="item-content">
+                            <span><%= item.name %></span>  
+                        </div>
+                        <div class="item-price">
+                            <span><%= item.price %>/-</span>
+                            <div class="quantity-container">
+                                <label for="quantity-<%= index %>">Qty:</label>
+                                <input type="number" id="quantity-<%= index %>" name="quantities[<%= index %>]" class="quantity-input" value="1" min="1"/>
+                                <input type="hidden" name="items[<%= index %>][name]" value="<%= item.name %>"/>
+                                <input type="hidden" name="items[<%= index %>][price]" value="<%= item.price %>"/>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            <div class="button-container">
+                <a href="/restaurant-menu" class="button" style="text-decoration: none;">Back to Menu</a>
+                <button class="button" type="submit">Confirm Order</button>
+            </div>
+        </form>
+        
+    </div>
+</body>
+
+</html>

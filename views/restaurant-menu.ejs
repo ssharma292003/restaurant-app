@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .menu-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            max-width: 600px;
+        }
+        .category {
+            margin-top: 20px;
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 5px;
+        }
+        .item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .item-content {
+            flex: 1;
+        }
+        .item-price {
+            display: flex;
+            align-items: center;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #004494;
+        }
+    </style>
+</head>
+<body>
+    <form action="/restaurant-menu" method="POST">
+        <div class="menu-container">
+            <h1>Menu</h1>
+            
+            <div class="category">Fast Food</div>
+            <% menu.forEach(function(data){ %>
+                <% if(data.CATEGORY === 'Fast Food') { %>
+                    <div class="item">
+                        <div class="item-content">
+                            <span><%= data.ITEM_NAME %></span>  
+                        </div>
+                        <div class="item-price">
+                            <span><%= data.PRICE %>/-</span>
+                            <input type="checkbox" name="items" value="<%= JSON.stringify({ name: data.ITEM_NAME, price: data.PRICE }) %>"/>
+                        </div>
+                    </div>
+                <% } %>
+            <% }) %>
+
+            <div class="category">Punjabi</div>
+            <% menu.forEach(function(data){ %>
+                <% if(data.CATEGORY === 'Punjabi') { %>
+                    <div class="item">
+                        <div class="item-content">
+                            <span><%= data.ITEM_NAME %></span>    
+                        </div>
+                        <div class="item-price">
+                            <span><%= data.PRICE %>/-</span>  
+                            <input type="checkbox" name="items" value="<%= JSON.stringify({ name: data.ITEM_NAME, price: data.PRICE }) %>"/>
+</div>
+                    </div>
+                <% } %>
+            <% }) %>
+
+            <div class="category">South Indian</div>
+            <% menu.forEach(function(data){ %>
+                <% if(data.CATEGORY === 'South Indian') { %>
+                    <div class="item">
+                        <div class="item-content">
+                            <span><%= data.ITEM_NAME %></span>    
+                        </div>
+                        <div class="item-price">
+                            <span><%= data.PRICE %>/-</span>  
+                            <input type="checkbox" name="items" value="<%= JSON.stringify({ name: data.ITEM_NAME, price: data.PRICE }) %>"/>
+                        </div>
+                    </div>
+                <% } %>
+            <% }) %>
+
+            <div class="button-container">
+                <button class="button" type="submit" name="action" value="takeaway">Take Away</button>
+                <button class="button" type="submit" name="action" value="delivery">Home Delivery</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

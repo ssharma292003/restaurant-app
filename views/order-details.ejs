@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .summary-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .item {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #004494;
+        }
+        .grand-total {
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="summary-container">
+        <h1>Order Details</h1>
+        <h2>Ordered Items:</h2>
+        <div class="item-container">
+            <% let grandTotal = 0; %> <!-- Initialize grand total -->
+            <% orderDetails.forEach(function(item) { %>
+                <div class="item">
+                    <div class="item-content">
+                        <span><%= item.name %></span>  
+                    </div>
+                    <div class="item-price">
+                        <span><%= item.price %>/-</span>
+                        <span>Qty: <%= item.quantity %></span>
+                        <span>Total: <%= item.quantity * item.price %>/-</span>
+                    </div>
+                </div>
+                <% grandTotal += item.quantity * item.price; %> <!-- Update grand total -->
+            <% }) %>
+        </div>
+        <div class="grand-total">
+            Grand Total: <%= grandTotal %>/- <!-- Display grand total -->
+        </div>
+        <div class="button-container">
+            <a href="/restaurant-menu" class="button" style="text-decoration: none;">Back to Menu</a>
+            <button class="button" type="button" onclick="window.print();">Print Order</button>
+        </div>
+    </div>
+</body>
+</html>

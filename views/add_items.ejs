@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        header {
+            background: #11120b;
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            color: #0e0e01;
+        }
+
+        button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+        }
+
+        .category-box {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .plus-sign {
+            font-size: 24px;
+            color: #f44336;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <% if (session.loggedIn) { %>
+        <%- include('header') %>
+
+        <form action="/add_items" method="POST">
+            <div class="form-group">
+                <h1 align="center"><%= cat_name %></h1>
+                <label for="category_name">Item Name:</label>
+                <input type="text" name="name" id="name" required>
+                <label for="category_name">Price:</label>
+                <input type="text" name="item_price" id="item_price" required>
+                <input type="hidden" name="username" id="username" value="<%= session.username %>">
+                <input type="hidden" name="cat_name" id="cat_name" value="<%= cat_name %>">
+                <button type="submit">ADD</button>
+            </div>
+        </form>
+
+        <div>
+            <label for="Category"><%= cat_name %></label>
+            <% items.forEach(function(categories) { %>
+                <div class="category-box">
+                    <span><%= categories.ITEM_NAME %></span>
+                    <a href="/add_items/<%= categories.CATEGORY %>"><span class="plus-sign">+</span></a>
+                </div>
+            <% }) %>
+        </div>
+    <% } %>
+</body>
+</html>

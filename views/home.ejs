@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .restaurant-info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .restaurant-info h2 {
+            color: #0056b3;
+        }
+        .restaurant-info p {
+            line-height: 1.6;
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+        img {
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <% if (session.loggedIn) { %>
+        <h1>Welcome <%= session.username %></h1>
+        <button type="button"><a href="/logout">Logout</a></button>
+       <div>
+        <% list.forEach(function(restaurants){ %>
+            <div class="restaurant-info">
+                <h2><%= restaurants.NAME %></h2>
+                <p>Email: <%= restaurants.EMAIL %></p>
+                <p>
+                    <img src="uploads/<%= restaurants.IMAGEURL %>" alt="<%= list.NAME %> Photo" style="width: 10%; height: auto;">
+                </p>
+                <button type="button">
+                    <a href="/restaurant-menu/<%= restaurants.NAME %>">Menu</a>
+                </button>
+            </div>
+        <%}) %>
+       </div>
+    <% } else { %>
+        <p>Please log in to see your restaurant information.</p>
+    <% } %>
+</body>
+</html>
